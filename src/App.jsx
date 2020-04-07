@@ -1,26 +1,22 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import PokeCatcher from "./PokeCatcher";
 import PokeList from "./PokeList";
 
-class App extends Component {
-  state = {
-    pokeList: [],
+const App = () => {
+  const [pokeList, setPokeList] = useState([]);
+
+  const storePokemon = (data) => {
+    setPokeList([...pokeList, data]);
   };
 
-  storePokemon = (data) => {
-    this.setState({ pokeList: [...this.state.pokeList, data] });
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <h2>PokeAPI</h2>
-        <PokeCatcher pokemonData={this.storePokemon} />
-        <PokeList pokeList={this.state.pokeList} />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      <h2>PokeAPI</h2>
+      <PokeCatcher pokemonData={storePokemon} />
+      <PokeList pokeList={pokeList} />
+    </div>
+  );
+};
 
 export default App;
