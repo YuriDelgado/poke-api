@@ -1,33 +1,27 @@
-import React from "react";
-import axios from "axios";
+import React, { Component } from "react";
 
-const getImage = (url) => {
-  console.log(url);
-  axios
-    .get(url)
-    .then((res) => {
-      // console.log(res.data.sprites.front_default);
-      return res.data.sprites.front_default;
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-};
+import Pokemon from "./Pokemon";
 
-const PokeList = (props) => {
-  return (
-    <>
-      {props.pokeList.lenght === 0 && "There are no pokemons, yet. Add one!"}
-      {props.pokeList.map((pokemon, idx) => (
-        <div key={idx}>
-          <div style={{ maxWidth: "400px" }}>
-            <img src={getImage(pokemon.urlImage)} />
-          </div>
-          <div>{pokemon.name}</div>
-        </div>
-      ))}
-    </>
-  );
-};
+class PokeList extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  state = {
+    urlImage: "",
+  };
+
+  render() {
+    return (
+      <>
+        {this.props.pokeList.lenght === 0 &&
+          "There are no pokemons, yet. Add one!"}
+        {this.props.pokeList.map((pokemon, idx) => (
+          <Pokemon key={idx} pokeInfo={pokemon} />
+        ))}
+      </>
+    );
+  }
+}
 
 export default PokeList;
